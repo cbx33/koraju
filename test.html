@@ -3,8 +3,10 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript">
 thresh = 100
-sz = 75
-ssz = 100
+minsz = 75
+minimsz = 50
+maxsz = 150
+maximsz = 140
 x = 100
 y = 100
 pad = 100
@@ -22,8 +24,8 @@ for (row = 0; row < xn; ++row)
 		arr[row][col] = new Array(2)
 		arr[row][col][0] = x + row * pad
 		arr[row][col][1] = y + col * pad
-        img = '<img id="imgger'+row+col+'" style="width:75px;height:75px" src="im.jpg">'
-		$("body").append('<div id="divver'+row+col+'" style="top:'+(arr[row][col][0] - sz/2)+'px;left:'+(arr[row][col][1]-sz/2) +'px;width:50px;height:50px;z-index:30;background-color:rgb('+Math.round(row/xn*255)+','+Math.round(col/yn*255)+',0);position:absolute;">'+img+'</div>')
+        img = '<img id="imgger'+row+col+'" style="margin:'+Math.round((minsz-minimsz)/2)+'px;width:'+minimsz+'px;height:'+minimsz+'px" src="im.jpg">'
+		$("body").append('<div id="divver'+row+col+'" style="top:'+(arr[row][col][0] - minsz/2)+'px;left:'+(arr[row][col][1]-minsz/2) +'px;width:'+minsz+'px;height:'+minsz+'px;z-index:0;background-color:rgb('+Math.round(row/xn*255)+','+Math.round(col/yn*255)+',0);position:absolute;">'+img+'</div>')
 	}
 }
 
@@ -38,26 +40,30 @@ $(document).mousemove(function(e)
                 if (a < thresh) 
             {
                 //a = (Math.abs(y - e.pageY) + Math.abs(x - e.pageX)) / 2
-                    $('#divver'+row+col).css('width', 2 * sz - (a / thresh) * sz + "px")
-                    $('#divver'+row+col).css('height', 2 * sz - (a / thresh) * sz + "px")
+                    szer = minsz + ((maxsz - minsz) * (1-(a / thresh)))
+                    szimer = minimsz + ((maximsz - minimsz) * (1-(a / thresh)))
+                    $('#divver'+row+col).css('width', szer + "px")
+                    $('#divver'+row+col).css('height', szer + "px")
                     
-                    $('#divver'+row+col).css('top', arr[row][col][0] - (2 * sz - (a / thresh) * sz) / 2 + "px")
-                    $('#divver'+row+col).css('left', arr[row][col][1] - (2 * sz - (a / thresh) * sz) / 2 + "px")
+                    $('#divver'+row+col).css('top', arr[row][col][0] - szer / 2 + "px")
+                    $('#divver'+row+col).css('left', arr[row][col][1] - szer / 2 + "px")
                     $('#divver'+row+col).css('z-index', thresh - Math.round(a))
                     
-                    $('#imgger'+row+col).css('width', 2 * sz - (a / thresh) * sz + "px")
-                    $('#imgger'+row+col).css('height', 2 * sz - (a / thresh) * sz + "px")
+                    $('#imgger'+row+col).css('width', szimer + "px")
+                    $('#imgger'+row+col).css('height', szimer + "px")
+                    
+                    $('#imgger'+row+col).css('margin', Math.round((szer - szimer) / 2) +"px")
             }
                 if (a > thresh) 
             {
                 //a = (Math.abs(y - e.pageY) + Math.abs(x - e.pageX)) / 2
-                    $('#divver'+row+col).css('width', sz + "px")
-                    $('#divver'+row+col).css('height', sz + "px")
-                    $('#divver'+row+col).css('top', arr[row][col][0] - (sz) / 2 + "px")
-                    $('#divver'+row+col).css('left', arr[row][col][1] - (sz) / 2 + "px")
+                    $('#divver'+row+col).css('width', minsz + "px")
+                    $('#divver'+row+col).css('height', minsz + "px")
+                    $('#divver'+row+col).css('top', arr[row][col][0] - (minsz) / 2 + "px")
+                    $('#divver'+row+col).css('left', arr[row][col][1] - (minsz) / 2 + "px")
                     
-                    $('#imgger'+row+col).css('width', sz + "px")
-                    $('#imgger'+row+col).css('height', sz + "px")                    
+                    $('#imgger'+row+col).css('width', minimsz + "px")
+                    $('#imgger'+row+col).css('height', minimsz + "px")                    
             }
         }
     }
