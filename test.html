@@ -2,16 +2,18 @@
 <head>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript">
+enable_opacity = 1
+opacmin = 0.3
 thresh = 100
 minsz = 75
-minimsz = 50
-maxsz = 150
-maximsz = 140
+minimsz = 25
+maxsz = 300
+maximsz = 280
 x = 100
 y = 100
 pad = 100
-xn = 4
-yn = 5
+xn = 5
+yn = 8
 arr = new Array(xn)
 
 jQuery(document).ready(function(){
@@ -26,6 +28,7 @@ for (row = 0; row < xn; ++row)
 		arr[row][col][1] = y + col * pad
         img = '<img id="imgger'+row+col+'" style="margin:'+Math.round((minsz-minimsz)/2)+'px;width:'+minimsz+'px;height:'+minimsz+'px" src="im.jpg">'
 		$("body").append('<div id="divver'+row+col+'" style="top:'+(arr[row][col][0] - minsz/2)+'px;left:'+(arr[row][col][1]-minsz/2) +'px;width:'+minsz+'px;height:'+minsz+'px;z-index:0;background-color:rgb('+Math.round(row/xn*255)+','+Math.round(col/yn*255)+',0);position:absolute;">'+img+'</div>')
+        if (enable_opacity) {$('#divver'+row+col).css('opacity', opacmin)}
 	}
 }
 
@@ -48,11 +51,16 @@ $(document).mousemove(function(e)
                     $('#divver'+row+col).css('top', arr[row][col][0] - szer / 2 + "px")
                     $('#divver'+row+col).css('left', arr[row][col][1] - szer / 2 + "px")
                     $('#divver'+row+col).css('z-index', thresh - Math.round(a))
-                    
+
+                    if (enable_opacity) {
+                        $('#divver'+row+col).css('opacity', 1 - a/thresh + opacmin)
+                    }
+
                     $('#imgger'+row+col).css('width', szimer + "px")
                     $('#imgger'+row+col).css('height', szimer + "px")
                     
                     $('#imgger'+row+col).css('margin', Math.round((szer - szimer) / 2) +"px")
+                    
             }
                 if (a > thresh) 
             {
@@ -62,8 +70,14 @@ $(document).mousemove(function(e)
                     $('#divver'+row+col).css('top', arr[row][col][0] - (minsz) / 2 + "px")
                     $('#divver'+row+col).css('left', arr[row][col][1] - (minsz) / 2 + "px")
                     
+                    if (enable_opacity) {
+                        $('#divver'+row+col).css('opacity', opacmin)
+                    }
+                    
                     $('#imgger'+row+col).css('width', minimsz + "px")
-                    $('#imgger'+row+col).css('height', minimsz + "px")                    
+                    $('#imgger'+row+col).css('height', minimsz + "px")       
+                    
+                    $('#imgger'+row+col).css('margin', ((minsz - minimsz) / 2) +"px")   
             }
         }
     }
@@ -73,8 +87,5 @@ $(document).mousemove(function(e)
 </script>
 <body>
 
-<h2 id="status">
-0, 0
-</h2>
 </body>
 </html>
