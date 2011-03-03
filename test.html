@@ -166,15 +166,17 @@ if (debug){
 	"</br>Affected X Size:" + affectXSize +
     "</br>Affected Y Size:" + affectYSize +
     "</br>XStartBlock:"+ xstartBlock+
-    "</br>YStartBlock:"+ ystartBlock
+    "</br>YStartBlock:"+ ystartBlock+
+    "</br>XEP:"+ (xstartBlock + affectXSize)+
+    "</br>YEP:"+ (ystartBlock + affectYSize)
 }
     
     $("#borderTracker").css('top', e.pageY - thresh + "px")
     $("#borderTracker").css('left', e.pageX - thresh + "px")
     
-    for (row = 0; row < xn; ++row)
+    for (row = ystartBlock; row < ystartBlock + affectYSize; ++row)
     {
-		for (col = 0; col < yn; ++col)
+		for (col = xstartBlock; col < xstartBlock + affectXSize; ++col)
         {
             a = Math.sqrt( Math.pow(Math.abs(arr[row][col][0] - e.pageY), 2) + Math.pow(Math.abs(arr[row][col][1] - e.pageX), 2) )
             //$('#status').html(e.pageX +', '+ e.pageY+ ',' + a);
