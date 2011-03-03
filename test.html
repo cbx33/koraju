@@ -3,6 +3,12 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript">
 
+//TODO
+//Reverse chronological
+//Assign cols, deduce rows
+//Don't show blanks
+//Maybe define greyscale saturation
+
 imageArray = new Array();
 imageArray[0] = ["im0.jpg", "nextTest"];
 imageArray[1] = ["im1.jpg", "nextTest"];
@@ -20,19 +26,100 @@ imageArray[12] = ["im12.jpg", "nextTest"];
 imageArray[13] = ["im13.jpg", "nextTest"];
 imageArray[14] = ["im14.jpg", "nextTest"];
 imageArray[15] = ["im15.jpg", "nextTest"];
+imageArray[16] = ["im16.jpg", "nextTest"];
+imageArray[17] = ["im17.jpg", "nextTest"];
+imageArray[18] = ["im18.jpg", "nextTest"];
+imageArray[19] = ["im19.jpg", "nextTest"];
+imageArray[20] = ["im20.jpg", "nextTest"];
+imageArray[21] = ["im21.jpg", "nextTest"];
+imageArray[22] = ["im22.jpg", "nextTest"];
+imageArray[23] = ["im23.jpg", "nextTest"];
+imageArray[24] = ["im24.jpg", "nextTest"];
+imageArray[25] = ["im25.jpg", "nextTest"];
+imageArray[26] = ["im26.jpg", "nextTest"];
+imageArray[27] = ["im27.jpg", "nextTest"];
+imageArray[28] = ["im28.jpg", "nextTest"];
+imageArray[29] = ["im29.jpg", "nextTest"];
+imageArray[30] = ["im30.jpg", "nextTest"];
+imageArray[31] = ["im31.jpg", "nextTest"];
+imageArray[32] = ["im32.jpg", "nextTest"];
+imageArray[33] = ["im33.jpg", "nextTest"];
+imageArray[34] = ["im34.jpg", "nextTest"];
+imageArray[35] = ["im35.jpg", "nextTest"];
+imageArray[36] = ["im36.jpg", "nextTest"];
+imageArray[37] = ["im37.jpg", "nextTest"];
+imageArray[38] = ["im38.jpg", "nextTest"];
+imageArray[39] = ["im39.jpg", "nextTest"];
+imageArray[40] = ["im40.jpg", "nextTest"];
+imageArray[41] = ["im41.jpg", "nextTest"];
+imageArray[42] = ["im42.jpg", "nextTest"];
+imageArray[43] = ["im43.jpg", "nextTest"];
+imageArray[44] = ["im44.jpg", "nextTest"];
+imageArray[45] = ["im45.jpg", "nextTest"];
+imageArray[46] = ["im46.jpg", "nextTest"];
+imageArray[47] = ["im47.jpg", "nextTest"];
+imageArray[48] = ["im48.jpg", "nextTest"];
+imageArray[49] = ["im49.jpg", "nextTest"];
+imageArray[50] = ["im50.jpg", "nextTest"];
+imageArray[51] = ["im51.jpg", "nextTest"];
+imageArray[52] = ["im52.jpg", "nextTest"];
+imageArray[53] = ["im53.jpg", "nextTest"];
+imageArray[54] = ["im54.jpg", "nextTest"];
+imageArray[55] = ["im55.jpg", "nextTest"];
+imageArray[56] = ["im56.jpg", "nextTest"];
+imageArray[57] = ["im57.jpg", "nextTest"];
+imageArray[58] = ["im58.jpg", "nextTest"];
+imageArray[59] = ["im59.jpg", "nextTest"];
+imageArray[60] = ["im60.jpg", "nextTest"];
+imageArray[61] = ["im61.jpg", "nextTest"];
+imageArray[62] = ["im62.jpg", "nextTest"];
+imageArray[63] = ["im63.jpg", "nextTest"];
+imageArray[64] = ["im64.jpg", "nextTest"];
+imageArray[65] = ["im65.jpg", "nextTest"];
+imageArray[66] = ["im66.jpg", "nextTest"];
+imageArray[67] = ["im67.jpg", "nextTest"];
+imageArray[68] = ["im68.jpg", "nextTest"];
+imageArray[69] = ["im69.jpg", "nextTest"];
+imageArray[70] = ["im70.jpg", "nextTest"];
+imageArray[71] = ["im71.jpg", "nextTest"];
+imageArray[72] = ["im72.jpg", "nextTest"];
+imageArray[73] = ["im73.jpg", "nextTest"];
+imageArray[74] = ["im74.jpg", "nextTest"];
+imageArray[75] = ["im75.jpg", "nextTest"];
+imageArray[76] = ["im76.jpg", "nextTest"];
+imageArray[77] = ["im77.jpg", "nextTest"];
+imageArray[78] = ["im78.jpg", "nextTest"];
+imageArray[79] = ["im79.jpg", "nextTest"];
+imageArray[80] = ["im80.jpg", "nextTest"];
+imageArray[81] = ["im81.jpg", "nextTest"];
+imageArray[82] = ["im82.jpg", "nextTest"];
+imageArray[83] = ["im83.jpg", "nextTest"];
+imageArray[84] = ["im84.jpg", "nextTest"];
+imageArray[85] = ["im85.jpg", "nextTest"];
+imageArray[86] = ["im86.jpg", "nextTest"];
+imageArray[87] = ["im87.jpg", "nextTest"];
+imageArray[88] = ["im88.jpg", "nextTest"];
+imageArray[89] = ["im89.jpg", "nextTest"];
 
+
+autoDetect = 1          //Enable auto detection of no rows  [0 or 1]
 enable_opacity = 1      //Enable or Disable Opacity         [0 or 1]
 opacmin = 0.5           //Minimum Opaticy                   [0 to 1]
 thresh = 100            //Threshold till activation         [x]px
-minsz = 90              //Sm Size of overall border + photo [x]px
-minimsz = 85            //Sm Size of photo (< minsz)        [x]px
+minsz = 50              //Sm Size of overall border + photo [x]px
+minimsz = 45            //Sm Size of photo (< minsz)        [x]px
 maxsz = 300             //Mx Size of overall border + photo [x]px
 maximsz = 290           //Mx Size of photo (< maxsz)        [x]px
 x = 100                 //Start position in x direction     [x]px
 y = 100                 //Start position in y direction     [x]px
-pad = 100               //Distance between center of boxes  [x]px
+pad = 60               //Distance between center of boxes  [x]px
+yn = 15                  //Number of images in y direction   [0 to 10]
+if (autoDetect){
+    xn = Math.ceil(imageArray.length / yn)
+}
+else{
 xn = 4                  //Number of images in x direction   [0 to 10]
-yn = 4                  //Number of images in y direction   [0 to 10]
+}
 arr = new Array(xn)
 
 jQuery(document).ready(function(){
@@ -45,7 +132,7 @@ for (row = 0; row < xn; ++row)
 		arr[row][col] = new Array(2)
 		arr[row][col][0] = x + row * pad
 		arr[row][col][1] = y + col * pad
-        img = '<img id="imgger'+row+col+'" style="margin:'+Math.round((minsz-minimsz)/2)+'px;width:'+minimsz+'px;height:'+minimsz+'px" src="'+imageArray[row*4+col]+'">' + (row*4+col)
+        img = '<img id="imgger'+row+col+'" style="margin:'+Math.round((minsz-minimsz)/2)+'px;width:'+minimsz+'px;height:'+minimsz+'px" src="'+imageArray[row*yn+col]+'">' + (row*yn+col)
 		$("body").append('<div id="divver'+row+col+'" style="top:'+(arr[row][col][0] - minsz/2)+'px;left:'+(arr[row][col][1]-minsz/2) +'px;width:'+minsz+'px;height:'+minsz+'px;z-index:0;background-color:rgb('+Math.round(row/xn*255)+','+Math.round(col/yn*255)+',0);position:absolute;">'+img+'</div>')
         if (enable_opacity) {$('#divver'+row+col).css('opacity', opacmin)}
 	}
