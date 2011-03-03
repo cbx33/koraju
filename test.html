@@ -136,12 +136,13 @@ for (row = 0; row < xn; ++row)
 	arr[row] = new Array(yn)
 	for (col = 0; col < yn; ++col)
     {
+        if ((row*yn+col) == imageArray.length){break}
 		arr[row][col] = new Array(2)
 		arr[row][col][0] = y + row * pad
 		arr[row][col][1] = x + col * pad
         arr[row][col][2] = 0
         arr[row][col][3] = 0
-        img = '<img id="imgger'+row+col+'" style="margin:'+Math.round((minsz-minimsz)/2)+'px;width:'+minimsz+'px;height:'+minimsz+'px" src="'+imageArray[row*yn+col]+'">' + (row*yn+col)
+        img = '<img id="imgger'+row+col+'" style="margin:'+Math.round((minsz-minimsz)/2)+'px;width:'+minimsz+'px;height:'+minimsz+'px" src="'+imageArray[(row*yn+col)][0]+'">' + (row*yn+col)
 		$("body").append('<div id="divver'+row+col+'" style="top:'+(arr[row][col][0] - minsz/2)+'px;left:'+(arr[row][col][1]-minsz/2) +'px;width:'+minsz+'px;height:'+minsz+'px;z-index:0;background-color:rgb('+Math.round(row/xn*255)+','+Math.round(col/yn*255)+',0);position:absolute;">'+img+'</div>')
         if (enable_opacity) {$('#divver'+row+col).css('opacity', opacmin)}
 	}
