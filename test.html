@@ -150,6 +150,10 @@ for (row = 0; row < xn; ++row)
 $(document).mousemove(function(e)
 {
 
+
+    
+if (debug){
+
 normX = e.pageX - x
 normY = e.pageY - y
 
@@ -162,8 +166,6 @@ if (xstartBlock < 0){ xstartBlock = 0}
 if (xstartBlock > yn){ xstartBlock = yn}
 if (ystartBlock < 0){ ystartBlock = 0}
 if (ystartBlock > xn){ ystartBlock = xn}
-    
-if (debug){
 
     document.getElementById("coords").innerHTML=e.pageX+","+e.pageY+
     "</br>Normalised:" + normX + "," + normY+
