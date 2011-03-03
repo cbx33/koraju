@@ -107,9 +107,9 @@ enable_opacity = 1      //Enable or Disable Opacity         [0 or 1]
 opacmin = 0.5           //Minimum Opaticy                   [0 to 1]
 thresh = 100            //Threshold till activation         [x]px
 minsz = 50              //Sm Size of overall border + photo [x]px
-minimsz = 45            //Sm Size of photo (< minsz)        [x]px
-maxsz = 200             //Mx Size of overall border + photo [x]px
-maximsz = 190           //Mx Size of photo (< maxsz)        [x]px
+minimsz = 25            //Sm Size of photo (< minsz)        [x]px
+maxsz = 60             //Mx Size of overall border + photo [x]px
+maximsz = 55           //Mx Size of photo (< maxsz)        [x]px
 y = 200                 //Start position in x direction     [x]px
 x = 100                 //Start position in y direction     [x]px
 pad = 60               //Distance between center of boxes  [x]px
@@ -145,14 +145,28 @@ for (row = 0; row < xn; ++row)
 $(document).mousemove(function(e)
 {
 
+normX = e.pageX - x
+normY = e.pageY - y
+
+affectXSize = Math.round(((normX + thresh) - (normX - thresh)) / pad) + 1
+affectYSize = Math.round(((normY + thresh) - (normY - thresh)) / pad) + 1
+xstartBlock = Math.round((normX - thresh) / pad)
+ystartBlock = Math.round((normY - thresh) / pad)
+
+if (xstartBlock < 0){ xstartBlock = 0}
+if (xstartBlock > yn){ xstartBlock = yn}
+if (ystartBlock < 0){ ystartBlock = 0}
+if (ystartBlock > xn){ ystartBlock = xn}
+    
 if (debug){
+
     document.getElementById("coords").innerHTML=e.pageX+","+e.pageY+
-    "</br>Normalised:" + (e.pageX - x) + "," + (e.pageY - y)+
-    "</br>Normalised +- thresh:(" + (e.pageX - x - thresh) +","+ (e.pageY - y - thresh)+ " " + (e.pageX - x + thresh) +","+ (e.pageY - y + thresh)+")"+
-	"</br>Affected X Size:" + Math.ceil(((e.pageX - x + thresh) - (e.pageX - x - thresh)) / pad)+
-    "</br>Affected Y Size:" + Math.ceil(((e.pageY - y + thresh) - (e.pageY - y - thresh)) / pad)+
-    "</br>XStartBlock:"+
-    "</br>YStartBlock:"
+    "</br>Normalised:" + normX + "," + normY+
+    "</br>Normalised +- thresh:(" + (normX - thresh) +","+ (normY - thresh)+ " " + (normX + thresh) +","+ (normY + thresh)+")"+
+	"</br>Affected X Size:" + affectXSize +
+    "</br>Affected Y Size:" + affectYSize +
+    "</br>XStartBlock:"+ xstartBlock+
+    "</br>YStartBlock:"+ ystartBlock
 }
     
     $("#borderTracker").css('top', e.pageY - thresh + "px")
