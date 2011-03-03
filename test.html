@@ -110,8 +110,8 @@ minsz = 50              //Sm Size of overall border + photo [x]px
 minimsz = 45            //Sm Size of photo (< minsz)        [x]px
 maxsz = 300             //Mx Size of overall border + photo [x]px
 maximsz = 290           //Mx Size of photo (< maxsz)        [x]px
-x = 200                 //Start position in x direction     [x]px
-y = 100                 //Start position in y direction     [x]px
+y = 200                 //Start position in x direction     [x]px
+x = 100                 //Start position in y direction     [x]px
 pad = 60               //Distance between center of boxes  [x]px
 yn = 15                  //Number of images in y direction   [0 to 10]
 if (autoDetect){
@@ -130,8 +130,8 @@ for (row = 0; row < xn; ++row)
 	for (col = 0; col < yn; ++col)
     {
 		arr[row][col] = new Array(2)
-		arr[row][col][0] = x + row * pad
-		arr[row][col][1] = y + col * pad
+		arr[row][col][0] = y + row * pad
+		arr[row][col][1] = x + col * pad
         img = '<img id="imgger'+row+col+'" style="margin:'+Math.round((minsz-minimsz)/2)+'px;width:'+minimsz+'px;height:'+minimsz+'px" src="'+imageArray[row*yn+col]+'">' + (row*yn+col)
 		$("body").append('<div id="divver'+row+col+'" style="top:'+(arr[row][col][0] - minsz/2)+'px;left:'+(arr[row][col][1]-minsz/2) +'px;width:'+minsz+'px;height:'+minsz+'px;z-index:0;background-color:rgb('+Math.round(row/xn*255)+','+Math.round(col/yn*255)+',0);position:absolute;">'+img+'</div>')
         if (enable_opacity) {$('#divver'+row+col).css('opacity', opacmin)}
@@ -141,7 +141,7 @@ for (row = 0; row < xn; ++row)
 $(document).mousemove(function(e)
 {
     document.getElementById("coords").innerHTML=e.pageX+","+e.pageY+
-    "</br>Normalised:" + (e.pageX - y) + "," + (e.pageY - x)
+    "</br>Normalised:" + (e.pageX - x) + "," + (e.pageY - y)
 	for (row = 0; row < xn; ++row)
     {
 		for (col = 0; col < yn; ++col)
