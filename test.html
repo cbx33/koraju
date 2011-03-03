@@ -101,15 +101,15 @@ imageArray[87] = ["im87.jpg", "nextTest"];
 imageArray[88] = ["im88.jpg", "nextTest"];
 imageArray[89] = ["im89.jpg", "nextTest"];
 
-
+debug = 1               //Enable debug                      [0 or 1]
 autoDetect = 1          //Enable auto detection of no rows  [0 or 1]
 enable_opacity = 1      //Enable or Disable Opacity         [0 or 1]
 opacmin = 0.5           //Minimum Opaticy                   [0 to 1]
 thresh = 100            //Threshold till activation         [x]px
 minsz = 50              //Sm Size of overall border + photo [x]px
 minimsz = 45            //Sm Size of photo (< minsz)        [x]px
-maxsz = 300             //Mx Size of overall border + photo [x]px
-maximsz = 290           //Mx Size of photo (< maxsz)        [x]px
+maxsz = 200             //Mx Size of overall border + photo [x]px
+maximsz = 190           //Mx Size of photo (< maxsz)        [x]px
 y = 200                 //Start position in x direction     [x]px
 x = 100                 //Start position in y direction     [x]px
 pad = 60               //Distance between center of boxes  [x]px
@@ -123,6 +123,10 @@ xn = 4                  //Number of images in x direction   [0 to 10]
 arr = new Array(xn)
 
 jQuery(document).ready(function(){
+
+if (debug){
+$("body").append('<div id="borderTracker" style="border:1px solid #f00;width:'+(thresh*2)+';height:'+(thresh*2)+';position:absolute;top:0px;left:0px;z-index:99"></div>')
+}
 
 for (row = 0; row < xn; ++row)
 {
@@ -140,9 +144,21 @@ for (row = 0; row < xn; ++row)
 
 $(document).mousemove(function(e)
 {
+
+if (debug){
     document.getElementById("coords").innerHTML=e.pageX+","+e.pageY+
-    "</br>Normalised:" + (e.pageX - x) + "," + (e.pageY - y)
-	for (row = 0; row < xn; ++row)
+    "</br>Normalised:" + (e.pageX - x) + "," + (e.pageY - y)+
+    "</br>Normalised +- thresh:(" + (e.pageX - x - thresh) +","+ (e.pageY - y - thresh)+ " " + (e.pageX - x + thresh) +","+ (e.pageY - y + thresh)+")"+
+	"</br>Affected X Size:" + Math.ceil(((e.pageX - x + thresh) - (e.pageX - x - thresh)) / pad)+
+    "</br>Affected Y Size:" + Math.ceil(((e.pageY - y + thresh) - (e.pageY - y - thresh)) / pad)+
+    "</br>XStartBlock:"+
+    "</br>YStartBlock:"
+}
+    
+    $("#borderTracker").css('top', e.pageY - thresh + "px")
+    $("#borderTracker").css('left', e.pageX - thresh + "px")
+    
+    for (row = 0; row < xn; ++row)
     {
 		for (col = 0; col < yn; ++col)
         {
