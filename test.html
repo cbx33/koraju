@@ -2,18 +2,37 @@
 <head>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript">
-enable_opacity = 1
-opacmin = 0.3
-thresh = 100
-minsz = 75
-minimsz = 25
-maxsz = 300
-maximsz = 280
-x = 100
-y = 100
-pad = 100
-xn = 5
-yn = 8
+
+imageArray = new Array();
+imageArray[0] = ["im0.jpg", "nextTest"];
+imageArray[1] = ["im1.jpg", "nextTest"];
+imageArray[2] = ["im2.jpg", "nextTest"];
+imageArray[3] = ["im3.jpg", "nextTest"];
+imageArray[4] = ["im4.jpg", "nextTest"];
+imageArray[5] = ["im5.jpg", "nextTest"];
+imageArray[6] = ["im6.jpg", "nextTest"];
+imageArray[7] = ["im7.jpg", "nextTest"];
+imageArray[8] = ["im8.jpg", "nextTest"];
+imageArray[9] = ["im9.jpg", "nextTest"];
+imageArray[10] = ["im10.jpg", "nextTest"];
+imageArray[11] = ["im11.jpg", "nextTest"];
+imageArray[12] = ["im12.jpg", "nextTest"];
+imageArray[13] = ["im13.jpg", "nextTest"];
+imageArray[14] = ["im14.jpg", "nextTest"];
+imageArray[15] = ["im15.jpg", "nextTest"];
+
+enable_opacity = 1      //Enable or Disable Opacity         [0 or 1]
+opacmin = 0.5           //Minimum Opaticy                   [0 to 1]
+thresh = 100            //Threshold till activation         [x]px
+minsz = 90              //Sm Size of overall border + photo [x]px
+minimsz = 85            //Sm Size of photo (< minsz)        [x]px
+maxsz = 300             //Mx Size of overall border + photo [x]px
+maximsz = 290           //Mx Size of photo (< maxsz)        [x]px
+x = 100                 //Start position in x direction     [x]px
+y = 100                 //Start position in y direction     [x]px
+pad = 100               //Distance between center of boxes  [x]px
+xn = 4                  //Number of images in x direction   [0 to 10]
+yn = 4                  //Number of images in y direction   [0 to 10]
 arr = new Array(xn)
 
 jQuery(document).ready(function(){
@@ -26,7 +45,7 @@ for (row = 0; row < xn; ++row)
 		arr[row][col] = new Array(2)
 		arr[row][col][0] = x + row * pad
 		arr[row][col][1] = y + col * pad
-        img = '<img id="imgger'+row+col+'" style="margin:'+Math.round((minsz-minimsz)/2)+'px;width:'+minimsz+'px;height:'+minimsz+'px" src="im.jpg">'
+        img = '<img id="imgger'+row+col+'" style="margin:'+Math.round((minsz-minimsz)/2)+'px;width:'+minimsz+'px;height:'+minimsz+'px" src="'+imageArray[row*4+col]+'">' + (row*4+col)
 		$("body").append('<div id="divver'+row+col+'" style="top:'+(arr[row][col][0] - minsz/2)+'px;left:'+(arr[row][col][1]-minsz/2) +'px;width:'+minsz+'px;height:'+minsz+'px;z-index:0;background-color:rgb('+Math.round(row/xn*255)+','+Math.round(col/yn*255)+',0);position:absolute;">'+img+'</div>')
         if (enable_opacity) {$('#divver'+row+col).css('opacity', opacmin)}
 	}
