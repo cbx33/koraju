@@ -110,7 +110,7 @@ minsz = 50              //Sm Size of overall border + photo [x]px
 minimsz = 45            //Sm Size of photo (< minsz)        [x]px
 maxsz = 300             //Mx Size of overall border + photo [x]px
 maximsz = 290           //Mx Size of photo (< maxsz)        [x]px
-x = 100                 //Start position in x direction     [x]px
+x = 200                 //Start position in x direction     [x]px
 y = 100                 //Start position in y direction     [x]px
 pad = 60               //Distance between center of boxes  [x]px
 yn = 15                  //Number of images in y direction   [0 to 10]
@@ -140,6 +140,8 @@ for (row = 0; row < xn; ++row)
 
 $(document).mousemove(function(e)
 {
+    document.getElementById("coords").innerHTML=e.pageX+","+e.pageY+
+    "</br>Normalised:" + (e.pageX - y) + "," + (e.pageY - x)
 	for (row = 0; row < xn; ++row)
     {
 		for (col = 0; col < yn; ++col)
@@ -192,6 +194,6 @@ $(document).mousemove(function(e)
 })
 </script>
 <body>
-
+<div id="coords"></div>
 </body>
 </html>
