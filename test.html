@@ -1,0 +1,74 @@
+<html>
+<head>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript">
+thresh = 100
+sz = 75
+ssz = 100
+x = 100
+y = 100
+pad = 100
+xn = 4
+yn = 5
+arr = new Array(xn)
+
+jQuery(document).ready(function(){
+
+for (row = 0; row < xn; ++row)
+{
+	arr[row] = new Array(yn)
+	for (col = 0; col < yn; ++col)
+    {
+		arr[row][col] = new Array(2)
+		arr[row][col][0] = x + row * pad
+		arr[row][col][1] = y + col * pad
+        img = '<img id="imgger'+row+col+'" style="width:75px;height:75px" src="im.jpg">'
+		$("body").append('<div id="divver'+row+col+'" style="top:'+(arr[row][col][0] - sz/2)+'px;left:'+(arr[row][col][1]-sz/2) +'px;width:50px;height:50px;z-index:30;background-color:rgb('+Math.round(row/xn*255)+','+Math.round(col/yn*255)+',0);position:absolute;">'+img+'</div>')
+	}
+}
+
+$(document).mousemove(function(e)
+{
+	for (row = 0; row < xn; ++row)
+    {
+		for (col = 0; col < yn; ++col)
+        {
+            a = Math.sqrt( Math.pow(Math.abs(arr[row][col][0] - e.pageY), 2) + Math.pow(Math.abs(arr[row][col][1] - e.pageX), 2) )
+            //$('#status').html(e.pageX +', '+ e.pageY+ ',' + a);
+                if (a < thresh) 
+            {
+                //a = (Math.abs(y - e.pageY) + Math.abs(x - e.pageX)) / 2
+                    $('#divver'+row+col).css('width', 2 * sz - (a / thresh) * sz + "px")
+                    $('#divver'+row+col).css('height', 2 * sz - (a / thresh) * sz + "px")
+                    
+                    $('#divver'+row+col).css('top', arr[row][col][0] - (2 * sz - (a / thresh) * sz) / 2 + "px")
+                    $('#divver'+row+col).css('left', arr[row][col][1] - (2 * sz - (a / thresh) * sz) / 2 + "px")
+                    $('#divver'+row+col).css('z-index', thresh - Math.round(a))
+                    
+                    $('#imgger'+row+col).css('width', 2 * sz - (a / thresh) * sz + "px")
+                    $('#imgger'+row+col).css('height', 2 * sz - (a / thresh) * sz + "px")
+            }
+                if (a > thresh) 
+            {
+                //a = (Math.abs(y - e.pageY) + Math.abs(x - e.pageX)) / 2
+                    $('#divver'+row+col).css('width', sz + "px")
+                    $('#divver'+row+col).css('height', sz + "px")
+                    $('#divver'+row+col).css('top', arr[row][col][0] - (sz) / 2 + "px")
+                    $('#divver'+row+col).css('left', arr[row][col][1] - (sz) / 2 + "px")
+                    
+                    $('#imgger'+row+col).css('width', sz + "px")
+                    $('#imgger'+row+col).css('height', sz + "px")                    
+            }
+        }
+    }
+
+}); 
+})
+</script>
+<body>
+
+<h2 id="status">
+0, 0
+</h2>
+</body>
+</html>
