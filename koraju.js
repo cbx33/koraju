@@ -78,7 +78,7 @@ imageArray[67] = ["im.jpg", "nextTest"];
 
 imageArray.reverse() // Should reverse it all if not assign
 
-debug = 0               //Enable debug                      [0 or 1]
+debug = 1               //Enable debug                      [0 or 1]
 autoDetect = 1          //Enable auto detection of no rows  [0 or 1]
 enable_opacity = 1      //Enable or Disable Opacity         [0 or 1]
 opacmin = 0.5           //Minimum Opaticy                   [0 to 1]
